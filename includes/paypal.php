@@ -1,7 +1,7 @@
 <?php
     require 'paypal/autoload.php';
 
-define('URL_SITIO','http://pagina_web_1.xd/');
+define('URL_SITIO','http://pagina_web_1.xd/');     
 
 // Instalacion de la API de Paypal
 $apiContext = new \PayPal\Rest\ApiContext(
