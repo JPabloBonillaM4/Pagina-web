@@ -263,5 +263,5 @@
       </form>
   </section>
 
-  <!-- LLAMAR AL TEMPLATE DEL FOOTER  -->
+<!-- LLAMAR AL TEMPLATE DEL FOOTER  -->
 <?php include_once 'includes/templates/footer.php' ?>
