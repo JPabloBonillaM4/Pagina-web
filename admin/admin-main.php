@@ -1,5 +1,4 @@
 <?php include('templates/head.php'); ?>
-<body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- BARRA DE NAVEGACION -->
