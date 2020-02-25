@@ -23,40 +23,35 @@
         <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Nuevo administrador</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fas fa-minus"></i></button>
-                </div>
             </div>
-            <div class="card-body">
-                <form class="form-horizontal" name="crear-admin" id="crear-admin" method="POST">
+            <form class="form-horizontal" name="crear-admin" id="crear-admin">
+                <div class="card-body">
                     <div class="card-body">
                         <!-- usuario -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="email" class="form-control" id="user" name="user" placeholder="Usuario">
+                            <input type="text" class="form-control" id="user" name="user" data-name="usuario" placeholder="Usuario">
                         </div>
                         <!-- contraseña -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                            <input type="password" class="form-control" id="password" name="password" data-name="contraseña" placeholder="Contraseña">
                         </div>
                         <!-- nombre -->
                         <div class="form-group">
                             <label for="name">Nombre:</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Escriba nombre completo...">
+                            <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo...">
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="card-footer d-flex justify-content-center">
-                <button class="btn btn-outline-success">Agregar</button>
-            </div>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <button class="btn btn-outline-success" id="agregar_admin">Agregar</button>
+                </div>
+            </form>
         </div>
     </section>
 

@@ -9,5 +9,7 @@
 <script src="js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
+<!-- admin js -->
+<script src="js/admin.js"></script>
 </body>
 </html>
