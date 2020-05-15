@@ -34,7 +34,6 @@
 
     function emailValidation(correo){
         let validation = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(correo.val())
-        console.log(validation);
         if(validation)
         {
             return true;
