@@ -22,7 +22,7 @@
 
                 if(element == 0 || typeof element == 'undefined' || element == null)
                 {
-                    alert(`El campo ${campo} está vacío, favor de llenarlo`);
+                    showAlert('CUIDADO',`El campo ${campo} está vacío, favor de llenarlo`,'yellow');
                     $(`#${key}`).focus();
                     return false;
                 }
@@ -38,7 +38,7 @@
         {
             return true;
         }else{
-            alert('El correo que ingresó debe ser correcto');
+            showAlert('CUIDADO','El correo que ingresó debe ser válido','yellow');
             correo.focus();
             return false;
         }
@@ -47,19 +47,19 @@
     function saveAdmin(event){
         event.preventDefault();
         let datos = getData('crear-admin');
+        console.log(typeof datos);
         if(typeof datos === 'object')
         {
             if(!emailValidation($('#crear-admin #email')))
                 return false;
 
             $.post("controllers/insertar-admin.php",datos,function(response){
-                console.log(JSON.parse(response));
+                console.log(response);
+                showAlert('!EXITO¡','Usuario registrado','green');
             })
             .fail(function(){
-                console.log('Error al procesar registro');
+                showAlert('ERROR','Error al procesar registro','red');  
             });
-        } else {
-            console.log('Hubo un error en el formulario');
         }
     }
 
@@ -79,8 +79,19 @@
         }
         else
         {
-            console.log('No es posible cambiar este tipo de input');
+            showAlert('CUIDADO','No es posible cambiar este tipo de input','yellow');
         }
+    }
+
+    function showAlert(titulo,mensaje,color){
+        iziToast.show({
+            title    : titulo,
+            message  : mensaje,
+            color    : color,
+            position : 'topRight',
+            layout   : 2,
+            balloon   : true
+        });
     }
 })();
 

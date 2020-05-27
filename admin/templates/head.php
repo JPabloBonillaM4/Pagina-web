@@ -17,5 +17,6 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- estilos personalizados -->
   <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/iziToast.min.css">
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">

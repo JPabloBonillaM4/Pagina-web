@@ -11,5 +11,7 @@
 <script src="js/demo.js"></script>
 <!-- admin js -->
 <script src="js/admin.js"></script>
+<!-- izziToast alerts-->
+<script src="js/iziToast.min.js"></script>
 </body>
 </html>

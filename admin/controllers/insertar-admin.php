@@ -3,6 +3,7 @@
     $hash_options = array(
         'cost'=>12
     );
+
     if(isset($_POST['agregar-admin']))
     {
         $name     = $_POST['name'];
