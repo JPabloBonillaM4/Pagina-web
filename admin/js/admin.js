@@ -47,7 +47,6 @@
     function saveAdmin(event){
         event.preventDefault();
         let datos = getData('crear-admin');
-        console.log(typeof datos);
         if(typeof datos === 'object')
         {
             if(!emailValidation($('#crear-admin #email')))

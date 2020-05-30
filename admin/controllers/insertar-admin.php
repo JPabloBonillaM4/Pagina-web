@@ -1,4 +1,6 @@
 <?php
+    include_once('../functions/functions.php');
+
     header("Content-Type: text/html;charset=utf-8");
     $hash_options = array(
         'cost'=>12
@@ -8,9 +10,6 @@
     {
         $name     = $_POST['name'];
         $user     = $_POST['user'];
-        $password = password_hash($_POST['password'],PASSWORD_BCRYPT,$hash_options);
         $email    = $_POST['email'];
+        $password = password_hash($_POST['password'],PASSWORD_BCRYPT,$hash_options);
     }
-    echo '<pre>';
-        var_dump($password);
-    echo '</pre>';
