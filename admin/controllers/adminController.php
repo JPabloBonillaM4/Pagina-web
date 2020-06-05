@@ -51,3 +51,8 @@
 
         die(json_encode($respuesta));
     }
+    
+    if(isset($_POST['login_admin']))
+    {
+        die(json_encode($_POST));
+    }
