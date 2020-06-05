@@ -1,17 +1,13 @@
 (()=>{
     // Acciones
-    $('#agregar_admin').click(saveAdmin);
+    $('#crear-admin').on('submit',saveAdmin);
     $('#show_password').click(showPassword);
 
     // funcion general para obtener datos del formulario
     function getData(form){
         let data = {};
 
-        $.each($(`#${form} input`),function(){
-            data[this.name] = this.value;
-        });
-
-        $.each($(`#${form} select`),function(){
+        $.each($(`#${form}`).serializeArray(),function(){
             data[this.name] = this.value;
         });
 
@@ -46,18 +42,30 @@
 
     function saveAdmin(event){
         event.preventDefault();
-        let datos = getData('crear-admin');
+        let form  = $(this).attr('id'),
+            datos = getData(form);
         if(typeof datos === 'object')
         {
-            if(!emailValidation($('#crear-admin #email')))
+            if(!emailValidation($(`#${form} #email`)))
                 return false;
 
             $.post("controllers/insertar-admin.php",datos,function(response){
-                console.log(response);
-                showAlert('!EXITO¡','Usuario registrado','green');
+                const respuesta = JSON.parse(response);
+
+                if(!respuesta.error)
+                {
+                    showAlert('!EXITO¡',respuesta.mensaje,'green');
+                    $(`#${form}`).trigger("reset");
+                }
+                else
+                {
+                    showAlert('ERROR',respuesta.mensaje,'red');
+                    if(respuesta.errorData)
+                        console.log(respuesta.errorData);
+                }
             })
             .fail(function(){
-                showAlert('ERROR','Error al procesar registro','red');  
+                showAlert('ERROR','Error al procesar la solicitud','red');  
             });
         }
     }
@@ -89,7 +97,7 @@
             color    : color,
             position : 'topRight',
             layout   : 2,
-            balloon   : true
+            balloon  : true
         });
     }
 })();
