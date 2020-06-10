@@ -3,15 +3,16 @@
     <div class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="../index.php"><b>GDL</b>WebCamp</a>
+                <a class="text-white" href="../index.php"><b>GDL</b>WebCamp</a>
             </div>
             <!-- /.login-logo -->
+            <?php session_start(); echo '<pre>'; var_dump($_SESSION);   echo '</pre>';?>
             <div class="card">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Ingresa para iniciar sesión</p>
                     <form name="login-admin-form" id="login-admin">
                         <div class="input-group mb-3">
-                            <input type="text" autocomplete="off" class="form-control" name="correo_usuario" id="correo_usuario" data-name="Correo o usuario" placeholder="Correo / Usuario">
+                            <input type="text" autocomplete="off" class="form-control" name="correo_usuario" id="correo_usuario" data-name="correo/usuario" placeholder="Correo / Usuario">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>

@@ -31,15 +31,15 @@
                 $message = 'No pudo registrarse el usuario administrador';
             }
 
+            $prepare_estatement->close();
+            $conexion->close();
+
             $respuesta = [
                 'error'         => $error,
                 'errorData'     => $errorData,
                 'mensaje'       => $message,
                 'id_registrado' => $id_registered
             ];
-
-            $prepare_estatement->close();
-            $conexion->close();
             
         } catch (Exception $e) {
             $respuesta = [
@@ -54,5 +54,61 @@
     
     if(isset($_POST['login_admin']))
     {
-        die(json_encode($_POST));
+        $user_email = $_POST['correo_usuario'];
+        $password_adm = $_POST['password'];
+        $error        = false;
+        $message      = null;
+
+        // die(json_encode($contraseña));
+        try {
+            include_once('../functions/functions.php');
+
+            $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE user = ? or email = ?");
+            $prepare_estatement->bind_param("ss",$user_email,$user_email);
+            $prepare_estatement->execute();
+            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin);
+            $errorData = $prepare_estatement->error_list;
+            if($prepare_estatement->affected_rows){
+                $exist = $prepare_estatement->fetch();
+                if($exist)
+                {
+                    if(password_verify($password_adm,$password_admin)){
+                        session_start();
+                        $_SESSION['usuario'] = $user_admin;
+                        $_SESSION['nombre']  = $name_admin;
+                        $message = 'Bienvenido '.$name_admin;
+                    }
+                    else{
+                        $error   = true;
+                        $message = 'Usuario o contraseña incorrectas, verifique sus datos';
+                    }
+                }else {
+                    $error   = true;
+                    $message = 'Usuario inexistente, verifique sus datos';
+                }
+            }
+
+            $prepare_estatement->close();
+            $conexion->close();
+
+            $respuesta = [
+                'error'     => $error,
+                'errorData' => $errorData,
+                'mensaje'   => $message,
+                'usuario'   => array(
+                    "id"       =>$id_admin,
+                    "user"     =>$user_admin,
+                    "name"     => $name_admin,
+                    "email"    => $email_admin
+                )
+            ];
+        } catch (Exception $e) {
+            $respuesta = [
+                'error'     => true,
+                'errorData' => "Error: " . $e->getMessage(),
+                'mensaje'   => 'Error en la consulta'
+            ];
+        }
+
+        die(json_encode($respuesta));
     }
