@@ -4,6 +4,37 @@
     $('#show_password').click(showPassword);
     $('#login-admin').on('submit',loginAdmin);
 
+    // DataTables - Opciones generales
+    $(document).ready( function () {
+        $('.dataTable').DataTable({
+            "language": {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Registros del _START_ al _END_ (_TOTAL_ registros)",
+                "sInfoEmpty":      "Registros del 0 al 0 (0 registros)",
+                "sInfoFiltered":   "- (filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         '<span class="fa fa-search"></span>',
+                "sSearchPlaceholder": "Buscar",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    } );
+
     // funcion general para obtener datos del formulario
     function getData(form){
         let data = {};

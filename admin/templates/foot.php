@@ -13,5 +13,9 @@
 <script src="js/admin.js"></script>
 <!-- izziToast alerts-->
 <script src="js/iziToast.min.js"></script>
+<!-- DataTables -->
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap4.min.js"></script>
+
 </body>
 </html>
