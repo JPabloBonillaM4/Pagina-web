@@ -74,8 +74,11 @@
                 {
                     if(password_verify($password_adm,$password_admin)){
                         session_start();
-                        $_SESSION['usuario'] = $user_admin;
-                        $_SESSION['nombre']  = $name_admin;
+                        $_SESSION['login']     = true;
+                        $_SESSION['data_user'] = array(
+                            'usuario' => $user_admin,
+                            'nombre'  => $name_admin
+                        );
                         $message = 'Bienvenido '.$name_admin;
                     }
                     else{

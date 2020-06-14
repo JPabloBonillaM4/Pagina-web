@@ -16,18 +16,17 @@
             <div class="image">
                 <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info d-flex flex-column">
-                <a href="#" class="d-block">Juan Pablo Bonilla Méndez</a>
-                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                    <button class="btn btn-outline-info btn-sm">Información</button>
-                    <button class="btn btn-outline-danger btn-sm">Log out</button>
+            <div class="info d-flex flex-column text-center w-75">
+                <a href="#" class="d-block" style="white-space: normal;"><?php echo $_SESSION['data_user']['nombre']; ?></a>
+                <div class="btn-group btn-group-toggle w-100">
+                    <a class="btn btn-outline-info btn-sm">Información</a>
+                    <a class="btn btn-outline-danger btn-sm" href="./login.php?session_close=true">Log out</a>
                 </div>
             </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->

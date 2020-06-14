@@ -70,11 +70,14 @@
             datos = getData(form);
         
         if(typeof datos === 'object')
-            conexionPostController("controllers/adminController.php",datos,form);
+            conexionPostController("controllers/adminController.php",datos,form,'admin-main.php');
     }
 
-    function conexionPostController(url,data,form){//La variable "form" es opcional si se desea limpiar el formulario
-        $.post(url,data,function(response){
+    function conexionPostController(url,data,form,redirect){
+        //La variable "form" es opcional si se desea limpiar el formulario
+        //La variable "redirect" es opcional si se desea redireccionar la página
+        $.post(url,data)
+        .done(function(response){
             const respuesta = JSON.parse(response);
                 
             if(typeof respuesta === 'object' && typeof respuesta.error !== 'undefined')
@@ -85,10 +88,19 @@
 
                     if(typeof form !== 'undefined')
                         $(`#${form}`).trigger("reset");
+                    
+                    if(typeof redirect !== 'undefined')
+                    {
+                        setTimeout(() => {
+                            window.location.href = redirect;
+                        }, 2500);
+                    }
+                    
                 }
                 else
                 {
                     showAlert('ERROR',respuesta.mensaje,'red');
+
                     if(respuesta.errorData)
                         console.log(respuesta.errorData);
                 }

@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+    if(isset($_GET['session_close']))
+    {
+        $sesion_cerrada = $_GET['session_close'];
+        if($sesion_cerrada)
+            session_destroy();
+    }
+?>
 <?php include('templates/head.php'); ?>
 
     <div class="hold-transition login-page">
@@ -6,7 +15,6 @@
                 <a class="text-white" href="../index.php"><b>GDL</b>WebCamp</a>
             </div>
             <!-- /.login-logo -->
-            <?php session_start(); echo '<pre>'; var_dump($_SESSION);   echo '</pre>';?>
             <div class="card">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Ingresa para iniciar sesión</p>

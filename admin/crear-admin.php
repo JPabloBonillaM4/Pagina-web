@@ -1,3 +1,4 @@
+<?php include_once('functions/sessions.php'); ?>
 <?php include('templates/head.php'); ?>
 <!-- Site wrapper -->
 <div class="wrapper">
