@@ -21,5 +21,5 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <!-- Agregar la clase "sidebar-collapse" al <body> si se desea colapsar el aside -->

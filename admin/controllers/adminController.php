@@ -2,6 +2,29 @@
 
     header("Content-Type: text/html;charset=utf-8");
 
+    function getAdminUsers(){
+
+        try {
+            include_once('../includes/funciones/bd_conexion.php');
+            return $conexion->query("SELECT id,user,name,email FROM admins WHERE status = 1 ORDER BY id ASC");
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            return '<pre>'.var_dump(array(
+                'error'   => $error,
+                'message' => 'Ocurrió un error al obtener los datos'
+            )).'</pre>';
+        }
+
+    }
+
+    function editAdmin(){
+        return 'Editar - Conexión correcta';
+    }
+
+    function deleteAdmin(){
+        return 'ELiminar - Conexión correcta';
+    }
+
     if(isset($_POST['agregar-admin']))
     {
         $hash_options = array(
@@ -59,7 +82,6 @@
         $error        = false;
         $message      = null;
 
-        // die(json_encode($contraseña));
         try {
             include_once('../functions/functions.php');
 
@@ -114,4 +136,12 @@
         }
 
         die(json_encode($respuesta));
+    }
+
+    if(isset($_POST['edit-admi'])){
+
+    }
+
+    if(isset($_POST['delete-admi'])){
+
     }

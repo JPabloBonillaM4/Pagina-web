@@ -22,7 +22,7 @@
 
     <section class="content">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
           <div class="card card-info h-100">
             <div class="card-header">
                 <h3 class="card-title">Nuevo administrador</h3>
@@ -66,7 +66,7 @@
             </form>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
           <img class="img-fluid" src="img/admins.gif" alt="imagen-administador">
         </div>
       </div>
