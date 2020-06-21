@@ -43,10 +43,10 @@
                       <td><?php echo $dato['name']; ?></td>
                       <td><?php echo $dato['email']; ?></td>
                       <td>
-                        <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm openModal" data-modal="edit_modal" data-action="edit-admin" data-id="<?php echo $dato['id']; ?>">
+                        <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="edit" data-id="<?php echo $dato['id']; ?>">
                           <i class="far fa-edit"></i>
                         </a>
-                        <a href="#" class="deleteAdmin btn btn-rounded btn-outline-danger btn-sm openModal" data-modal="delete_modal" data-action="delete-admin" data-id="<?php echo $dato['id']; ?>">
+                        <a href="#" class="deleteAdmin btn btn-rounded btn-outline-danger btn-sm openModal" data-modal="delete_modal" data-action="delete" data-id="<?php echo $dato['id']; ?>">
                           <i class="far fa-trash-alt"></i>
                         </a>
                       </td>

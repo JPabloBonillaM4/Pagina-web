@@ -2,6 +2,7 @@
 
     header("Content-Type: text/html;charset=utf-8");
 
+    // GET ALL ADMIN USERS TO THE LIST
     function getAdminUsers(){
 
         try {
@@ -17,14 +18,32 @@
 
     }
 
+    // EDIT ADMIN USER
     function editAdmin(){
-        return 'Editar - Conexión correcta';
+
+        $error = false;
+        $msg   = 'Editar - Conexión correcta';
+        $response = array(
+            'error' => $error,
+            'msg'   => $msg
+        );
+
+        return json_encode($response);
     }
 
+    // DELETE ADMIN USER
     function deleteAdmin(){
-        return 'ELiminar - Conexión correcta';
+        $error = false;
+        $msg   = 'Editar - Conexión correcta';
+        $response = array(
+            'error' => $error,
+            'msg'   => $msg
+        );
+
+        return json_encode($response);
     }
 
+    // SAVE ADMIN USER
     if(isset($_POST['agregar-admin']))
     {
         $hash_options = array(
@@ -75,6 +94,7 @@
         die(json_encode($respuesta));
     }
     
+    // LOGIN ADMIN
     if(isset($_POST['login_admin']))
     {
         $user_email = $_POST['correo_usuario'];
@@ -88,7 +108,7 @@
             $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE user = ? or email = ?");
             $prepare_estatement->bind_param("ss",$user_email,$user_email);
             $prepare_estatement->execute();
-            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin);
+            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin,$status_admin);
             $errorData = $prepare_estatement->error_list;
             if($prepare_estatement->affected_rows){
                 $exist = $prepare_estatement->fetch();
@@ -121,8 +141,8 @@
                 'errorData' => $errorData,
                 'mensaje'   => $message,
                 'usuario'   => array(
-                    "id"       =>$id_admin,
-                    "user"     =>$user_admin,
+                    "id"       => $id_admin,
+                    "user"     => $user_admin,
                     "name"     => $name_admin,
                     "email"    => $email_admin
                 )
@@ -138,10 +158,11 @@
         die(json_encode($respuesta));
     }
 
-    if(isset($_POST['edit-admi'])){
-
-    }
-
-    if(isset($_POST['delete-admi'])){
-
+    // EDIT AND DELETE
+    if(isset($_GET['action'])){
+        $action = $_GET['action'];
+        if($action == 'edit')
+        {
+            die(editAdmin());
+        }
     }
