@@ -2,7 +2,7 @@
 
     header("Content-Type: text/html;charset=utf-8");
 
-    // GET ALL ADMIN USERS TO THE LIST
+    // GET ALL ADMIN USERS
     function getAdminUsers(){
 
         try {
@@ -18,34 +18,8 @@
 
     }
 
-    // EDIT ADMIN USER
-    function editAdmin(){
-
-        $error = false;
-        $msg   = 'Editar - Conexión correcta';
-        $response = array(
-            'error' => $error,
-            'msg'   => $msg
-        );
-
-        return json_encode($response);
-    }
-
-    // DELETE ADMIN USER
-    function deleteAdmin(){
-        $error = false;
-        $msg   = 'Editar - Conexión correcta';
-        $response = array(
-            'error' => $error,
-            'msg'   => $msg
-        );
-
-        return json_encode($response);
-    }
-
     // SAVE ADMIN USER
-    if(isset($_POST['agregar-admin']))
-    {
+    function save(){
         $hash_options = array(
             'cost'=>12
         );
@@ -91,7 +65,87 @@
             ];
         }
 
-        die(json_encode($respuesta));
+        return json_encode($respuesta);
+    }
+
+    // GET ADMIN USER
+    function get($id){
+
+        $error = false;
+        $msg   = null;
+        $user  = null;
+
+        if(filter_var($id,FILTER_VALIDATE_INT) && $id > 0)
+        {
+            try {
+                include_once('../functions/functions.php');
+                $result = $conexion->query("SELECT * FROM admins WHERE id = $id");
+                $user   = $result->fetch_assoc();
+            } catch (Exception $e) {
+                $error = true;
+                $msg   = 'Error al obtener datos del usuario';
+            }
+        }else {
+            $error = true;
+            $msg   = 'Valor de consulta inválido';
+        }
+
+        return json_encode(array(
+            'error' => $error,
+            'msg'   => $msg,
+            'user'  => $user
+        ));
+
+    }
+
+    // EDIT ADMIN USER
+    function edit($id){
+        $error = false;
+        $msg   = 'Editar - Conexión correcta';
+        $response = array(
+            'error' => $error,
+            'mensaje'   => $msg,
+            'id'    => $id
+        );
+
+        return json_encode($response);
+    }
+
+    // DELETE ADMIN USER
+    function delete(){
+        $error = false;
+        $msg   = 'Eliminar - Conexión correcta';
+        $response = array(
+            'error' => $error,
+            'msg'   => $msg
+        );
+
+        return json_encode($response);
+    }
+
+    // SAVE, EDIT, DELETE AND GET
+    if(isset($_POST['action']) || isset($_GET['action']))
+    {
+        $action = (isset($_POST['action'])) ? $_POST['action'] : $_GET['action'];
+
+        switch ($action) {
+            case 'guardar':
+                    die(save());
+                break;
+
+            case 'get':
+                    die(get($_GET['id']));
+                break;
+            
+            case 'edit':
+                    die(edit($_POST['id']));
+                break;
+
+            case 'delete':
+                    
+                break;
+        }
+        
     }
     
     // LOGIN ADMIN
@@ -156,13 +210,4 @@
         }
 
         die(json_encode($respuesta));
-    }
-
-    // EDIT AND DELETE
-    if(isset($_GET['action'])){
-        $action = $_GET['action'];
-        if($action == 'edit')
-        {
-            die(editAdmin());
-        }
     }

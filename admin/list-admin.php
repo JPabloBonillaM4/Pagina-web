@@ -43,10 +43,10 @@
                       <td><?php echo $dato['name']; ?></td>
                       <td><?php echo $dato['email']; ?></td>
                       <td>
-                        <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="edit" data-id="<?php echo $dato['id']; ?>">
+                        <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id']; ?>">
                           <i class="far fa-edit"></i>
                         </a>
-                        <a href="#" class="deleteAdmin btn btn-rounded btn-outline-danger btn-sm openModal" data-modal="delete_modal" data-action="delete" data-id="<?php echo $dato['id']; ?>">
+                        <a href="#" class="deleteAdmin btn btn-rounded btn-outline-danger btn-sm" data-modal="delete_modal" data-action="delete" data-id="<?php echo $dato['id']; ?>">
                           <i class="far fa-trash-alt"></i>
                         </a>
                       </td>
@@ -61,60 +61,7 @@
   </div>
 
   <!-- MODALS -->
-  <!-- EDIT MODAL -->
-  <div class="modal fade" tabindex="-1" role="dialog" id="edit_modal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">EDIT MODAL</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="edit_admin_info">
-            <div class="form-group">
-              <label for=""></label>
-              <input type="text" id="">
-            </div>
-            <div class="form-group">
-              <label for=""></label>
-              <input type="text">
-            </div>
-            <div class="form-group">
-              <label for=""></label>
-              <input type="text">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- DELETE MODAL -->
-  <div class="modal fade" tabindex="-1" role="dialog" id="delete_modal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">DELETE MODAL</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Save changes</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <?php include('modals/edit-delete-admin.php') ?>
   <!-- FOOTER -->
   <?php include('templates/footer.php'); ?>
 

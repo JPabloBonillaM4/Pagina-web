@@ -30,13 +30,6 @@ $(document).ready( function () {
     });
 } );
 
-// OPEN MODAL
-$('.openModal').click(openModal);
-function openModal(event){
-    event.preventDefault();
-    $(`#${$(this).attr('data-modal')}`).modal('show');
-}
-
 // GENERAL FUNCTION TO GET DATA
 function getDataForm(form){
     let data = {};
@@ -74,10 +67,9 @@ function getDataForm(form){
 function conexionPostController(url,data,form,redirect){
     //La variable "form" es opcional si se desea limpiar el formulario
     //La variable "redirect" es opcional si se desea redireccionar la página
-    $.post(url,data)
+    return $.post(url,data)
     .done(function(response){
         const respuesta = JSON.parse(response);
-            
         if(typeof respuesta === 'object' && typeof respuesta.error !== 'undefined')
         {
             if(!respuesta.error)
@@ -102,6 +94,7 @@ function conexionPostController(url,data,form,redirect){
                 if(respuesta.errorData)
                     console.log(respuesta.errorData);
             }
+            console.log("Response from the factory => ",respuesta);
         }
     })
     .fail(function(){
@@ -117,9 +110,7 @@ function conexionGetController(url)
         const respuesta = JSON.parse(response);
             
         if(typeof respuesta === 'object' && typeof respuesta.error !== 'undefined')
-        {
             return respuesta;
-        }
     })
     .fail(function(){
         showAlert('ERROR','Error al procesar la solicitud','red');  

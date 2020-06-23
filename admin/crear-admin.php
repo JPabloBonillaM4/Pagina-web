@@ -58,7 +58,7 @@
                     <label for="name">Nombre:</label>
                     <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo...">
                 </div>
-                <input type="hidden" name="agregar-admin" value="1" id="agregar-admin" data-name="agregar-admin">
+                <input type="hidden" name="action" value="guardar" id="action" data-name="action">
               </div>
               <div class="card-footer d-flex justify-content-center">
                 <button type="submit" class="btn btn-outline-success">Agregar</button>
