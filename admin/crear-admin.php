@@ -34,14 +34,14 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input type="text" class="form-control" id="user" name="user" data-name="usuario" placeholder="Usuario">
+                    <input type="text" class="form-control" id="user" name="user" data-name="usuario" placeholder="Usuario" data-required="true">
                 </div>
                 <!-- contraseña -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
-                    <input type="password" class="form-control" id="password" name="password" data-name="contraseña" placeholder="Contraseña">
+                    <input type="password" class="form-control" id="password" name="password" data-name="contraseña" placeholder="Contraseña" data-required="true">
                     <div class="input-group-append">
                       <button id="show_password" class="btn btn-info" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
                     </div>
@@ -51,17 +51,20 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-at"></i></span>
                     </div>
-                    <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico">
+                    <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico" data-required="true">
                 </div>
                 <!-- nombre -->
                 <div class="form-group">
                     <label for="name">Nombre:</label>
-                    <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo...">
+                    <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo..." data-required="true">
                 </div>
                 <input type="hidden" name="action" value="guardar" id="action" data-name="action">
               </div>
               <div class="card-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-success">Agregar</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-info resetForm">Limpiar</button>
+                  <button type="submit" class="btn btn-outline-success">Agregar</button>
+                </div>
               </div>
             </form>
           </div>

@@ -99,14 +99,50 @@
     }
 
     // EDIT ADMIN USER
-    function edit($id){
-        $error = false;
-        $msg   = 'Editar - Conexión correcta';
-        $response = array(
-            'error' => $error,
-            'mensaje'   => $msg,
-            'id'    => $id
+    function edit($request){
+        $hash_options = array(
+            'cost'=>12
         );
+
+        $error    = false;
+        $msg      = null;
+        $name     = $request['name'];
+        $user     = $request['user'];
+        $email    = $request['email'];
+        $password = password_hash($request['password'],PASSWORD_BCRYPT,$hash_options);
+        $id       = (int)$request['id'];
+
+        try {
+            include_once('../functions/functions.php');
+            $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ? WHERE id = ?");
+            $prepare_estatement->bind_param("ssssi",$user,$name,$password,$email,$id);
+            $prepare_estatement->execute();
+            $id_update = $prepare_estatement->insert_id;
+            $errorData = $prepare_estatement->error_list;
+            if($prepare_estatement->affected_rows){
+                $msg = 'Usuario actualizado correctamente';
+            } else {
+                $error = true;
+                $msg   = 'No se pudo actualizar el usuario';
+            }
+
+            $prepare_estatement->close();
+            $conexion->close();
+
+            $response = array(
+                'error'      => $error,
+                'mensaje'    => $msg,
+                'errorData'  => $errorData,
+                'id_updated' => $id_update
+            );    
+    
+        } catch (Exception $e) {
+            $response = array(
+                'error'      => true,
+                'errorData' => "Error: " . $e->getMessage(),
+                'mensaje'    => 'Error al procesar registro'
+            );
+        }
 
         return json_encode($response);
     }
@@ -124,8 +160,7 @@
     }
 
     // SAVE, EDIT, DELETE AND GET
-    if(isset($_POST['action']) || isset($_GET['action']))
-    {
+    if(isset($_POST['action']) || isset($_GET['action'])){
         $action = (isset($_POST['action'])) ? $_POST['action'] : $_GET['action'];
 
         switch ($action) {
@@ -138,7 +173,7 @@
                 break;
             
             case 'edit':
-                    die(edit($_POST['id']));
+                    die(edit($_POST));
                 break;
 
             case 'delete':
@@ -149,8 +184,7 @@
     }
     
     // LOGIN ADMIN
-    if(isset($_POST['login_admin']))
-    {
+    if(isset($_POST['login_admin'])){
         $user_email = $_POST['correo_usuario'];
         $password_adm = $_POST['password'];
         $error        = false;

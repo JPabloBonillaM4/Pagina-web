@@ -42,11 +42,10 @@ function getDataForm(form){
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const element = data[key];
-                var campo     = document.getElementById(key).getAttribute('data-name');
-
-                if(element == 0 || typeof element == 'undefined' || element == null)
+                var campo     = document.getElementById(key);
+                if((element == 0 || typeof element == 'undefined' || element == null) && campo.getAttribute('data-required') == 'true')
                 {
-                    showAlert('CUIDADO',`El campo ${campo} está vacío, favor de llenarlo`,'yellow');
+                    showAlert('CUIDADO',`El campo ${campo.getAttribute('data-name')} está vacío, favor de llenarlo`,'yellow');
                     $(`#${key}`).focus();
                     return false;
                 }
@@ -62,6 +61,12 @@ function getDataForm(form){
     }
 
 };
+
+// RESET FORM
+$('.resetForm').on('click',resetDataForm);
+function resetDataForm(){
+    $(`#${$(this).parents('form').first().attr('id')}`).trigger('reset');
+}
 
 // CONEXION POST CONTROLLER
 function conexionPostController(url,data,form,redirect){

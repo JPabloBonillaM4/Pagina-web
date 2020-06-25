@@ -44,9 +44,11 @@
                 let datosUsuario = data.user;
                 for (const key in datosUsuario) {
                     if (datosUsuario.hasOwnProperty(key)) {
-                        $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key])
+                        if(key != 'password')
+                            $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key])
                     }
                 }
+                $(`#${$(this).attr('data-modal')} h5 span`).text(data.user.name);
                 $(`#${$(this).attr('data-modal')}`).modal('show');
             } else {
                 showAlert('ERROR',data.msg,'red');
@@ -61,15 +63,18 @@
         event.preventDefault();
         let form = $(this).attr('id'),
             datos = getDataForm(form);
-        
         if(typeof datos === 'object')
         {
             var response = conexionPostController("controllers/adminController.php",datos);
             response.then((result) => {
                 let data = JSON.parse(result);
                 console.log("Response from admin.js =>",data);
-                // if(!data.error)
-                //     $(`#${$(this).attr('data-modal')}`).modal('hide');
+                if(!data.error){
+                    setTimeout(() => {
+                        $(`#${$(this).attr('data-modal')}`).modal('hide');
+                        window.location.reload();
+                    }, 2000);
+                }
             }).catch((err) => {
                 console.log(err);
             });

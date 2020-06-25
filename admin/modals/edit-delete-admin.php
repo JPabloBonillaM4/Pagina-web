@@ -15,25 +15,35 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="user" name="user" data-name="usuario" placeholder="Usuario">
+                            <input type="text" class="form-control" id="user" name="user" data-name="usuario" placeholder="Usuario" data-required="true">
+                        </div>
+                        <!-- contraseña -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" class="form-control" id="password" name="password" data-name="contraseña" placeholder="Contraseña">
+                            <div class="input-group-append">
+                            <button id="show_password" class="btn btn-info" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
+                            </div>
                         </div>
                         <!-- correo -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                             </div>
-                            <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico">
+                            <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico" data-required="true">
                         </div>
                         <!-- nombre -->
                         <div class="form-group">
                             <label for="name">Nombre:</label>
-                            <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo...">
+                            <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo..." data-required="true">
                         </div>
                         <input type="hidden" name="id" id="id" data-name="id">
                         <input type="hidden" name="action" value="edit" id="action" data-name="action">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary resetForm" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </div>
             </form>
