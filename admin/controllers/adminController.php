@@ -114,8 +114,13 @@
 
         try {
             include_once('../functions/functions.php');
-            $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ? WHERE id = ?");
-            $prepare_estatement->bind_param("ssssi",$user,$name,$password,$email,$id);
+            if(!empty($request['password'])){
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("ssssi",$user,$name,$password,$email,$id);    
+            } else {
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, email = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("sssi",$user,$name,$email,$id);
+            }
             $prepare_estatement->execute();
             $id_update = $prepare_estatement->insert_id;
             $errorData = $prepare_estatement->error_list;
@@ -196,7 +201,7 @@
             $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE user = ? or email = ?");
             $prepare_estatement->bind_param("ss",$user_email,$user_email);
             $prepare_estatement->execute();
-            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin,$status_admin);
+            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin,$status_admin,$updated_at);
             $errorData = $prepare_estatement->error_list;
             if($prepare_estatement->affected_rows){
                 $exist = $prepare_estatement->fetch();
