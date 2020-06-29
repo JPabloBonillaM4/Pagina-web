@@ -28,14 +28,14 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" id="password" name="password" data-name="contraseña" class="form-control" placeholder="Contraseña">
+                            <input type="password" id="password" name="password" data-name="contraseña" class="form-control change_password" placeholder="Contraseña">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
                                 </div>
                             </div>
                             <div class="input-group-append">
-                                <button id="show_password" class="btn btn-info" type="button"> 
+                                <button id="show_password" class="btn btn-info show_password" type="button"> 
                                     <span class="fa fa-eye-slash icon_show_password"></span> 
                                 </button>
                             </div>

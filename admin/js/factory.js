@@ -65,7 +65,7 @@ function getDataForm(form){
 // RESET FORM
 $('.resetForm').on('click',resetDataForm);
 function resetDataForm(){
-    $(`#${$(this).parents('form').first().attr('id')}`).trigger('reset');
+    $(this).parents('form').first().trigger('reset');
 }
 
 // CONEXION POST CONTROLLER
@@ -149,9 +149,10 @@ function showAlert(titulo,mensaje,color){
 }
 
 // SHOW INPUT - PASSWORD
+$('.show_password').click(showPassword);
 function showPassword(){
-    let input_password = $(this).parent().parent().children('#password'),
-        icon           = $('.icon_show_password');
+    let input_password = $(this).parents().siblings('input.change_password'),
+        icon           = $(this).find('.icon_show_password');
     
     switch (input_password.attr('type')) {
         case 'password':
@@ -168,3 +169,16 @@ function showPassword(){
             showAlert('CUIDADO','No es posible cambiar este tipo de input','yellow');
     }
 }
+
+// REPEAT PASSWORD VALIDATION
+$('.check_password').on('input', function(){
+    //1.- Write this class on the inputs you want to check (.check_password)
+    //2.- Write this classes on the inputs you want to check (.first_password && .second_password)
+    let password   = $(this).parents('form').find('.first_password').first(),
+        password_2 = $(this).parents('form').find('.second_password').first();
+
+    if(password.val() == password_2.val())
+        $(this).parents('form').find('.message_repeat_password').first().html('<span><i class="fas fa-check-circle"></i> Contraseñas correctas<span>').css({"color":"green"});
+    else
+        $(this).parents('form').find('.message_repeat_password').first().html('<span><i class="fas fa-times-circle"></i> Las contraseñas deben coincidir<span>').css({"color":'red'});
+});

@@ -39,12 +39,26 @@
                 <!-- contraseña -->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" class="form-control change_password check_password first_password" id="password" name="password" data-name="contraseña" placeholder="Contraseña" data-required="true">
+                    <div class="input-group-append">
+                      <button class="btn btn-info show_password" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
+                    </div>
+                </div>
+                <!-- repetir contraseña -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
-                    <input type="password" class="form-control" id="password" name="password" data-name="contraseña" placeholder="Contraseña" data-required="true">
+                    <input type="password" class="form-control change_password check_password second_password" id="repeat_password" name="repeat_password" data-name="contraseña" placeholder="Repetir contraseña" data-required="true">
                     <div class="input-group-append">
-                      <button id="show_password" class="btn btn-info" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
+                      <button class="btn btn-info show_password" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
                     </div>
+                </div>
+                <!-- Mensaje de contraseña repetida -->
+                <div class="mb-3">
+                  <span class="help-block message_repeat_password"></span>
                 </div>
                 <!-- correo -->
                 <div class="input-group mb-3">

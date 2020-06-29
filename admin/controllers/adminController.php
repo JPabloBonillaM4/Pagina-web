@@ -33,7 +33,6 @@
 
         try {
             include_once('../functions/functions.php');
-
             $prepare_estatement = $conexion->prepare("INSERT INTO admins (user,name,password,email) VALUES (?,?,?,?)");
             $prepare_estatement->bind_param("ssss",$user,$name,$password,$email);
             $prepare_estatement->execute();
@@ -44,9 +43,10 @@
                 $message = 'Administrador registrado correctamente';
             } else {
                 $error   = true;
-                $message = 'No pudo registrarse el usuario administrador';
+                $message = 'Error en el proceso';
+                if($prepare_estatement->errno == 1062)
+                    $message .= ', el usuario ya se encuentra registrado';
             }
-
             $prepare_estatement->close();
             $conexion->close();
 

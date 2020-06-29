@@ -1,7 +1,6 @@
 (()=>{
     // Acciones
     $('#crear-admin').on('submit',saveAdmin);
-    $('#show_password').click(showPassword);
     $('#login-admin').on('submit',loginAdmin);
     $('.editAdmin').click(getAdminEditInfo);
     $('#edit_admin_info').on('submit',editAdmin);
