@@ -3,8 +3,20 @@
     $('#crear-admin').on('submit',saveAdmin);
     $('#login-admin').on('submit',loginAdmin);
     $('.editAdmin').click(getAdminEditInfo);
+    $('.deleteAdmin').click(modalDelete);
     $('#edit_admin_info').on('submit',editAdmin);
+    $('#delete_user_admin').on('submit',deleteAdmin);
 
+    // LOGIN ADMIN
+    function loginAdmin(event){
+        event.preventDefault();
+        let form  = $(this).attr('id')
+            datos = getDataForm(form);
+        
+        if(typeof datos === 'object')
+            conexionPostController("controllers/adminController.php",datos,form,'admin-main.php');
+    }
+    
     // SAVE NEW ADMIN
     function saveAdmin(event){
         event.preventDefault();
@@ -19,16 +31,6 @@
         }
     }
     
-    // LOGIN ADMIN
-    function loginAdmin(event){
-        event.preventDefault();
-        let form  = $(this).attr('id')
-            datos = getDataForm(form);
-        
-        if(typeof datos === 'object')
-            conexionPostController("controllers/adminController.php",datos,form,'admin-main.php');
-    }
-
     // GET ADMIN INFO BY USER
     function getAdminEditInfo(event){
         event.preventDefault();
@@ -67,7 +69,6 @@
             var response = conexionPostController("controllers/adminController.php",datos);
             response.then((result) => {
                 let data = JSON.parse(result);
-                console.log("Response from admin.js =>",data);
                 if(!data.error){
                     setTimeout(() => {
                         $(`#${$(this).attr('data-modal')}`).modal('hide');
@@ -78,6 +79,33 @@
                 console.log(err);
             });
             
+        }
+    }
+
+    // MODAL DELETE
+    function modalDelete(event){
+        event.preventDefault();
+        $(`#${$(this).attr('data-modal')} form input[id=id_delete]`).val($(this).attr('data-id'));
+        $(`#${$(this).attr('data-modal')}`).modal('show');
+    }
+
+    // DELETE ADMIN
+    function deleteAdmin(event){
+        event.preventDefault();
+        let form = $(this).attr('id'),
+            datos = getDataForm(form);
+
+        if(typeof datos === 'object'){
+            conexionPostController("controllers/adminController.php",datos).then(result => {
+                let data = JSON.parse(result);
+                if(!data.error){
+                    $(`#${$(this).attr('data-modal')}`).modal('hide');
+                    jQuery(`[data-id="${data.id}"]`).parents('tr').remove();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                }
+            });
         }
     }
 })();

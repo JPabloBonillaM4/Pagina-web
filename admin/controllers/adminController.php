@@ -143,9 +143,9 @@
     
         } catch (Exception $e) {
             $response = array(
-                'error'      => true,
+                'error'     => true,
                 'errorData' => "Error: " . $e->getMessage(),
-                'mensaje'    => 'Error al procesar registro'
+                'mensaje'   => 'Error al procesar registro'
             );
         }
 
@@ -153,13 +153,47 @@
     }
 
     // DELETE ADMIN USER
-    function delete(){
-        $error = false;
-        $msg   = 'Eliminar - Conexión correcta';
-        $response = array(
-            'error' => $error,
-            'msg'   => $msg
-        );
+    function destroy($id){
+        $error         = false;
+        $msg           = null;
+        $status_delete = 0;
+
+        try {
+            include_once('../functions/functions.php');
+            $prepare_estatement = $conexion->prepare("UPDATE admins SET status = ? WHERE id = ?");
+            $prepare_estatement->bind_param("ii",$status_delete,$id);
+            $prepare_estatement->execute();
+            $id_delete = $prepare_estatement->insert_id;
+            $errorData = $prepare_estatement->error_list;
+            if($prepare_estatement->affected_rows){
+                $msg = 'Usuario eliminado correctamente';
+            } else {
+                $error = true;
+                $msg   = 'No se pudo eliminar el usuario';
+            }
+
+            $prepare_estatement->close();
+            $conexion->close();
+
+            $response = array(
+                'error'      => $error,
+                'mensaje'    => $msg,
+                'errorData'  => $errorData,
+                'id_deleted' => $id_delete
+            );    
+
+            $response = array(
+                'error'  => $error,
+                'mensaje'=> $msg,
+                'id'     => $id
+            );
+        } catch (Exception $e) {
+            $response = array(
+                'error'     => true,
+                'errorData' => "Error: " . $e->getMessage(),
+                'mensaje'   => 'Error al procesar registro'
+            );
+        }
 
         return json_encode($response);
     }
@@ -182,7 +216,7 @@
                 break;
 
             case 'delete':
-                    
+                    die(destroy($_POST['id']));
                 break;
         }
         
@@ -198,7 +232,7 @@
         try {
             include_once('../functions/functions.php');
 
-            $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE user = ? or email = ?");
+            $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE status = 1 and user = ? or email = ?");
             $prepare_estatement->bind_param("ss",$user_email,$user_email);
             $prepare_estatement->execute();
             $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin,$status_admin,$updated_at);
@@ -222,7 +256,7 @@
                     }
                 }else {
                     $error   = true;
-                    $message = 'Usuario inexistente, verifique sus datos';
+                    $message = 'Usuario inexistente o eliminado, verifique sus datos';
                 }
             }
 
