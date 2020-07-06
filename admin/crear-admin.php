@@ -67,6 +67,11 @@
                     </div>
                     <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico" data-required="true">
                 </div>
+                <!-- opción superadmin -->
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="level" name="level" data-name="correo electrónico" placeholder="Correo electrónico">
+                    <label for="level" class="text-center"><small>Marque esta opción si desea que el usuario obtenga permisos de superadmin.</small></label>
+                </div>
                 <!-- nombre -->
                 <div class="form-group">
                     <label for="name">Nombre:</label>

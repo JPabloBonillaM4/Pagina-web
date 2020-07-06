@@ -18,6 +18,8 @@
     <script src="js/factory.js"></script>
     <!-- admin js -->
     <script src="js/admin.js"></script>
+    <!-- login-admin js -->
+    <script src="js/login-admin.js"></script>
 
 </body>
 </html>

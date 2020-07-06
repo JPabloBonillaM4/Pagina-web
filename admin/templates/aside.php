@@ -42,7 +42,7 @@
                         <li class="nav-item">
                         <a href="admin-main.php" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Dashboard</p>
+                            <p>Datos</p>
                         </a>
                     </ul>
                 </li>
@@ -146,31 +146,32 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-shield"></i>
-                        <p>
-                        Administradores
-                        <i class="fas fa-angle-left right"></i>
-                        <!-- <span class="badge badge-info right">6</span> -->
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="list-admin.php" class="nav-link">
-                                <i class="fas fa-list-alt nav-icon"></i>
-                                <p>Ver todos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="crear-admin.php" class="nav-link">
-                                <i class="fas fa-plus nav-icon"></i>
-                                <p>Agregar</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if($_SESSION['data_user']['nivel'] == 1): ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-shield"></i>
+                            <p>
+                            Administradores
+                            <i class="fas fa-angle-left right"></i>
+                            <!-- <span class="badge badge-info right">6</span> -->
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="list-admin.php" class="nav-link">
+                                    <i class="fas fa-list-alt nav-icon"></i>
+                                    <p>Ver todos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="crear-admin.php" class="nav-link">
+                                    <i class="fas fa-plus nav-icon"></i>
+                                    <p>Agregar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">

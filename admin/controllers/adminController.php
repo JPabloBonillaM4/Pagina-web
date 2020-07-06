@@ -19,22 +19,28 @@
     }
 
     // SAVE ADMIN USER
-    function save(){
+    function save($request){
         $hash_options = array(
             'cost'=>12
         );
     
-        $name         = $_POST['name'];
-        $user         = $_POST['user'];
-        $email        = $_POST['email'];
-        $password     = password_hash($_POST['password'],PASSWORD_BCRYPT,$hash_options);
-        $error        = false;
-        $message      = null;
+        $name     = $request['name'];
+        $user     = $request['user'];
+        $email    = $request['email'];
+        $password = password_hash($request['password'],PASSWORD_BCRYPT,$hash_options);
+        $error    = false;
+        $message  = null;
+        $level    = 1;
 
         try {
             include_once('../functions/functions.php');
-            $prepare_estatement = $conexion->prepare("INSERT INTO admins (user,name,password,email) VALUES (?,?,?,?)");
-            $prepare_estatement->bind_param("ssss",$user,$name,$password,$email);
+            if(isset($request['level'])){
+                $prepare_estatement = $conexion->prepare("INSERT INTO admins (user,name,password,email,level) VALUES (?,?,?,?,?)");
+                $prepare_estatement->bind_param("ssssi",$user,$name,$password,$email,$level);    
+            }else{
+                $prepare_estatement = $conexion->prepare("INSERT INTO admins (user,name,password,email) VALUES (?,?,?,?)");
+                $prepare_estatement->bind_param("ssss",$user,$name,$password,$email);    
+            }
             $prepare_estatement->execute();
             $id_registered = $prepare_estatement->insert_id;
             $errorData     = $prepare_estatement->error_list;
@@ -111,15 +117,23 @@
         $email    = $request['email'];
         $password = password_hash($request['password'],PASSWORD_BCRYPT,$hash_options);
         $id       = (int)$request['id'];
+        $level    = 1;
+        $noLevel  = 0;
 
         try {
             include_once('../functions/functions.php');
-            if(!empty($request['password'])){
-                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ?, updated_at = NOW() WHERE id = ?");
-                $prepare_estatement->bind_param("ssssi",$user,$name,$password,$email,$id);    
-            } else {
-                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, email = ?, updated_at = NOW() WHERE id = ?");
-                $prepare_estatement->bind_param("sssi",$user,$name,$email,$id);
+            if(!empty($request['password']) && isset($request['level'])){
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ?,level = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("ssssii",$user,$name,$password,$email,$level,$id);
+            } else if(!empty($request['password'])){
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, password = ?, email = ?,level = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("ssssii",$user,$name,$password,$email,$noLevel,$id);    
+            } else if(isset($request['level'])){
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, email = ?, level = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("sssii",$user,$name,$email,$level,$id);
+            }else{
+                $prepare_estatement = $conexion->prepare("UPDATE admins SET user = ?,name = ?, email = ?,level = ?, updated_at = NOW() WHERE id = ?");
+                $prepare_estatement->bind_param("sssii",$user,$name,$email,$noLevel,$id);
             }
             $prepare_estatement->execute();
             $id_update = $prepare_estatement->insert_id;
@@ -204,7 +218,7 @@
 
         switch ($action) {
             case 'guardar':
-                    die(save());
+                    die(save($_POST));
                 break;
 
             case 'get':
@@ -220,67 +234,4 @@
                 break;
         }
         
-    }
-    
-    // LOGIN ADMIN
-    if(isset($_POST['login_admin'])){
-        $user_email = $_POST['correo_usuario'];
-        $password_adm = $_POST['password'];
-        $error        = false;
-        $message      = null;
-
-        try {
-            include_once('../functions/functions.php');
-
-            $prepare_estatement = $conexion->prepare("SELECT * FROM admins WHERE status = 1 and user = ? or email = ?");
-            $prepare_estatement->bind_param("ss",$user_email,$user_email);
-            $prepare_estatement->execute();
-            $prepare_estatement->bind_result($id_admin,$user_admin,$name_admin,$password_admin,$email_admin,$status_admin,$updated_at);
-            $errorData = $prepare_estatement->error_list;
-            if($prepare_estatement->affected_rows){
-                $exist = $prepare_estatement->fetch();
-                if($exist)
-                {
-                    if(password_verify($password_adm,$password_admin)){
-                        session_start();
-                        $_SESSION['login']     = true;
-                        $_SESSION['data_user'] = array(
-                            'usuario' => $user_admin,
-                            'nombre'  => $name_admin
-                        );
-                        $message = 'Bienvenido '.$name_admin;
-                    }
-                    else{
-                        $error   = true;
-                        $message = 'Usuario o contraseña incorrectas, verifique sus datos';
-                    }
-                }else {
-                    $error   = true;
-                    $message = 'Usuario inexistente o eliminado, verifique sus datos';
-                }
-            }
-
-            $prepare_estatement->close();
-            $conexion->close();
-
-            $respuesta = [
-                'error'     => $error,
-                'errorData' => $errorData,
-                'mensaje'   => $message,
-                'usuario'   => array(
-                    "id"       => $id_admin,
-                    "user"     => $user_admin,
-                    "name"     => $name_admin,
-                    "email"    => $email_admin
-                )
-            ];
-        } catch (Exception $e) {
-            $respuesta = [
-                'error'     => true,
-                'errorData' => "Error: " . $e->getMessage(),
-                'mensaje'   => 'Error en la consulta'
-            ];
-        }
-
-        die(json_encode($respuesta));
     }

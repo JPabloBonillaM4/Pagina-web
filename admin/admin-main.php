@@ -4,7 +4,6 @@
 <div class="wrapper">
   <!-- BARRA DE NAVEGACION -->
   <?php include('templates/barra_navegacion.php'); ?>
-  
   <!-- BARRA LATERAL -->
   <?php include('templates/aside.php'); ?>
   <!-- Content Wrapper. Contains page content -->

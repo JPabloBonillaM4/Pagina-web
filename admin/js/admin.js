@@ -1,21 +1,10 @@
 (()=>{
     // Acciones
     $('#crear-admin').on('submit',saveAdmin);
-    $('#login-admin').on('submit',loginAdmin);
     $('.editAdmin').click(getAdminEditInfo);
     $('.deleteAdmin').click(modalDelete);
     $('#edit_admin_info').on('submit',editAdmin);
     $('#delete_user_admin').on('submit',deleteAdmin);
-
-    // LOGIN ADMIN
-    function loginAdmin(event){
-        event.preventDefault();
-        let form  = $(this).attr('id')
-            datos = getDataForm(form);
-        
-        if(typeof datos === 'object')
-            conexionPostController("controllers/adminController.php",datos,form,'admin-main.php');
-    }
     
     // SAVE NEW ADMIN
     function saveAdmin(event){
@@ -27,7 +16,10 @@
             if(!emailValidation($(`#${form} #email`)))
                 return false;
 
-            conexionPostController("controllers/adminController.php",datos,form);
+            conexionPostController("controllers/adminController.php",datos,form).then(function(){
+                $('.message_repeat_password').first().html('')
+            });
+
         }
     }
     
@@ -37,7 +29,7 @@
         const id           = $(this).attr('data-id'),
               action       = $(this).attr('data-action'),
               dataObtained = conexionGetController("controllers/adminController.php?id=" + id + "&action=" + action);
-
+        
         dataObtained.then((data) => {
             data = JSON.parse(data)
             if(!data.error)
@@ -47,6 +39,11 @@
                     if (datosUsuario.hasOwnProperty(key)) {
                         if(key != 'password')
                             $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key])
+                        
+                        if(parseInt(datosUsuario['level']) == 1)
+                            $(`#${$(this).attr('data-modal')} form #level`).attr('checked',true);
+                        else
+                            $(`#${$(this).attr('data-modal')} form #level`).attr('checked',false);
                     }
                 }
                 $(`#${$(this).attr('data-modal')} h5 span`).text(data.user.name);

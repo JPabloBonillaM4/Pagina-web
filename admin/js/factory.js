@@ -66,6 +66,9 @@ function getDataForm(form){
 $('.resetForm').on('click',resetDataForm);
 function resetDataForm(){
     $(this).parents('form').first().trigger('reset');
+    $.each($('.message_repeat_password'),function(key,element){
+        element.innerHTML = '';
+    })
 }
 
 // CONEXION POST CONTROLLER
