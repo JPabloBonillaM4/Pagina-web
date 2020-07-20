@@ -8,3 +8,11 @@ ul.nav-treeview{
     background-size: cover;
     background-position: center center;
 }
+
+.datepicker{
+    padding: 6px 12px !important;
+}
+
+.table-overflow{
+    overflow: auto;
+}

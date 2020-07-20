@@ -205,7 +205,7 @@
             $response = array(
                 'error'     => true,
                 'errorData' => "Error: " . $e->getMessage(),
-                'mensaje'   => 'Error al procesar registro'
+                'mensaje'   => 'Error al procesar eliminado'
             );
         }
 

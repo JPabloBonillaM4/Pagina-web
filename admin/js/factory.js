@@ -33,12 +33,13 @@ $(document).ready( function () {
 // GENERAL FUNCTION TO GET DATA
 function getDataForm(form){
     let data = {};
-
     try {
-        $.each($(`#${form}`).serializeArray(),function(){
+        $.each($(`form#${form}`).serializeArray(),function(){
             data[this.name] = this.value;
         });
-                
+        $.each($(`form#${form} select`),function(index,element){
+            data[element.name] = element.value;
+        })
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const element = data[key];
@@ -51,15 +52,12 @@ function getDataForm(form){
                 }
             }
         }
-
         return data;
     } catch (error) {
         console.error('El ID y el NAME de los inputs debe ser igual, DATA-NAME se usa para detectar el input vacío');
         console.error('ERROR => ', error);
-
         return false;
     }
-
 };
 
 // RESET FORM
@@ -83,7 +81,6 @@ function conexionPostController(url,data,form,redirect){
             if(!respuesta.error)
             {
                 showAlert('!EXITO¡',respuesta.mensaje,'green');
-
                 if(typeof form !== 'undefined')
                     $(`#${form}`).trigger("reset");
                 
@@ -93,12 +90,10 @@ function conexionPostController(url,data,form,redirect){
                         window.location.href = redirect;
                     }, 2500);
                 }
-                
             }
             else
             {
                 showAlert('ERROR',respuesta.mensaje,'red');
-
                 if(respuesta.errorData)
                     console.log(respuesta.errorData);
             }
@@ -185,3 +180,25 @@ $('.check_password').on('input', function(){
     else
         $(this).parents('form').find('.message_repeat_password').first().html('<span><i class="fas fa-times-circle"></i> Las contraseñas deben coincidir<span>').css({"color":'red'});
 });
+
+// ACTIVATE DATEPICKER
+$('.datepicker').daterangepicker({
+    locale: {
+        format: 'DD/MM/YYYY hh:mm A'
+    }
+});
+// ACTIVATE SELECT2
+$('.select2').select2({
+    theme:'bootstrap4'
+});
+// timePicker
+$('.timepicker').datetimepicker({
+    format: 'LT',
+    sideBySide: true,
+    icons: {
+        up: "fas fa-arrow-up",
+        down: "fas fa-arrow-down",
+        next: 'fa fa-chevron-circle-right',
+        previous: 'fa fa-chevron-circle-left'
+    }
+})

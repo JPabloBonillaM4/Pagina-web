@@ -24,7 +24,7 @@
         <div class="card-header">
           <h3 class="card-title">Admistración de usuarios</h3>
         </div>
-        <div class="card-body">
+        <div class="card-body table-overflow">
           <table class="dataTable table table-bordered table-striped">
             <thead>
               <tr class="text-center">

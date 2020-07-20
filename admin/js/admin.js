@@ -100,7 +100,7 @@
                     jQuery(`[data-id="${data.id}"]`).parents('tr').remove();
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1500);
+                    }, 2000);
                 }
             });
         }
