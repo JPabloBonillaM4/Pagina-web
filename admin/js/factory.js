@@ -219,3 +219,4 @@ $('.iconPicker').iconpicker({
         search: '<input type="search" class="form-control iconpicker-search" placeholder="Buscar icono..." />'
     }
 });
+$('.iconpicker-popover').removeClass('fade');

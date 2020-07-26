@@ -18,7 +18,7 @@
             });
         }
     }
-    // GET ADMIN INFO BY USER
+    // GET EVENT INFO
     function getEventEditInfo(event){
         event.preventDefault();
         const id           = $(this).attr('data-id'),
@@ -53,7 +53,6 @@
         $(`#${$(this).attr('data-modal')} form input[id=id_delete]`).val($(this).attr('data-id'));
         $(`#${$(this).attr('data-modal')}`).modal('show');
     }
-
     // DELETE EVENT
     function deleteEvent(event){
         event.preventDefault();
@@ -73,7 +72,7 @@
             });
         }
     }
-
+    // EDIT EVENT
     function editEvent(event){
         event.preventDefault();
         let form = $(this).attr('id'),

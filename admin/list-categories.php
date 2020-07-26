@@ -41,10 +41,10 @@
                       <td><?php echo $dato['cat_evento']; ?></td>
                       <td><i class="fa <?php echo $dato['icono']; ?>"></i></td>
                       <td>
-                        <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id_categoria']; ?>">
+                        <a href="#" class="editCategory btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id_categoria']; ?>">
                           <i class="far fa-edit"></i>
                         </a>
-                        <a href="#" class="deleteAdmin btn btn-rounded btn-outline-danger btn-sm" data-modal="delete_modal" data-action="delete" data-id="<?php echo $dato['id_categoria']; ?>">
+                        <a href="#" class="deleteCategory btn btn-rounded btn-outline-danger btn-sm" data-modal="delete_modal" data-action="delete" data-id="<?php echo $dato['id_categoria']; ?>">
                           <i class="far fa-trash-alt"></i>
                         </a>
                       </td>
@@ -59,7 +59,7 @@
   </div>
 
   <!-- MODALS -->
-  <?php include('modals/edit-delete-admin.php') ?>
+  <?php include('modals/edit-delete-category.php') ?>
   <!-- FOOTER -->
   <?php include('templates/footer.php'); ?>
 

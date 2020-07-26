@@ -79,7 +79,7 @@
                                             FROM eventos 
                                     INNER JOIN categoria_evento ON eventos.id_categoria = categoria_evento.id_categoria 
                                     INNER JOIN invitados ON eventos.id_invitado = invitados.id_invitado
-                                    WHERE status = 1 ORDER BY eventos.id ASC;");
+                                    WHERE eventos.status = 1 ORDER BY eventos.id ASC;");
         } catch (Exception $e) {
             $error = $e->getMessage();
             return '<pre>'.var_dump(array(
@@ -206,7 +206,7 @@
         try {
             include('../includes/funciones/bd_conexion.php');
             mysqli_set_charset($conexion, 'utf8');
-            return $conexion->query("SELECT * FROM categoria_evento");
+            return $conexion->query("SELECT * FROM categoria_evento where status = 1");
         } catch (Exception $e) {
             $error = $e->getMessage();
             return '<pre>'.var_dump(array(
