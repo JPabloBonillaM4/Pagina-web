@@ -133,7 +133,6 @@
 
         return json_encode($response);
     }
-
     // EDIT EVENT
     function edit($request){
         $name        = $request['nombre'];
@@ -179,7 +178,6 @@
 
         return json_encode($response);
     }
-
     // SAVE, EDIT, DELETE AND GET
     if(isset($_POST['action']) || isset($_GET['action'])){
         $action = (isset($_POST['action'])) ? $_POST['action'] : $_GET['action'];

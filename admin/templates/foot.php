@@ -25,12 +25,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <!-- daterangepicker -->
     <script src="js/daterangepicker.js"></script>
+    <!-- fontawesome-iconpicker -->
+    <script src="js/fontawesome-iconpicker.min.js"></script>
     <!-- factory -->
     <script src="js/factory.js"></script>
     <!-- admin js -->
     <script src="js/admin.js"></script>
-    <!-- admin js -->
+    <!-- events js -->
     <script src="js/events.js"></script>
+    <!-- categories js -->
+    <script src="js/categories.js"></script>
     <!-- login-admin js -->
     <script src="js/login-admin.js"></script>
 </body>

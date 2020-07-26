@@ -212,3 +212,10 @@ $('.timepicker').datetimepicker({
         previous: 'fa fa-chevron-circle-left'
     }
 })
+// Icon picker
+$('.iconPicker').iconpicker({
+    placement: 'right',
+    templates: {
+        search: '<input type="search" class="form-control iconpicker-search" placeholder="Buscar icono..." />'
+    }
+});

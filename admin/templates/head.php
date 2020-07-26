@@ -28,6 +28,8 @@
   <link href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css' rel='stylesheet' type='text/css' />
   <!-- daterangepicker -->
   <link rel="stylesheet" href="css/daterangepicker.css">
+  <!-- fontawesome-iconpicker -->
+  <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css">
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <!-- Agregar la clase "sidebar-collapse" al <body> si se desea colapsar el aside -->

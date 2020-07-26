@@ -16,3 +16,7 @@ ul.nav-treeview{
 .table-overflow{
     overflow: auto;
 }
+
+.fade:not(.show) {
+    opacity: 1 !important;
+}
