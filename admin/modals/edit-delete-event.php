@@ -10,42 +10,59 @@
             </div>
             <form id="edit_event_info" data-modal="edit_modal">
                 <div class="modal-body">
-                        <!-- usuario -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="event" name="event" data-name="nombre" placeholder="Nombre del evento..." data-required="true">
+                    <!-- Nombre del evento -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fab fa-elementor"></i></span>
                         </div>
-                        <!-- contraseña -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control change_password" id="password" name="password" data-name="contraseña" placeholder="Contraseña">
-                            <div class="input-group-append">
-                                <button class="btn btn-info show_password" type="button"> <span class="fa fa-eye-slash icon_show_password"></span> </button>
-                            </div>
+                        <input type="text" class="form-control" id="nombre" name="nombre" data-name="nombre" placeholder="Nombre del evento..." data-required="true">
+                    </div>
+                    <!-- Fecha del evento -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                         </div>
-                        <!-- correo -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-at"></i></span>
-                            </div>
-                            <input type="mail" class="form-control" id="email" name="email" data-name="correo electrónico" placeholder="Correo electrónico" data-required="true">
+                        <input type="text" autocomplete="off" class="form-control datepickerSingle" id="fecha" name="fecha" data-name="fecha" placeholder="Fecha del evento..." data-required="true">
+                    </div>
+                    <!-- Hora del evento -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
                         </div>
-                        <!-- opción superadmin -->
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="level" name="level" data-name="correo electrónico" placeholder="Correo electrónico">
-                            <label for="level" class="text-center"><small>Superadmin</small></label>
+                        <input type="text" class="form-control timepicker" id="hora" name="hora" data-name="hora" placeholder="Hora del evento..." data-required="true">
+                    </div>
+                    <!-- Categoría del evento -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-award"></i></span>
                         </div>
-                        <!-- nombre -->
-                        <div class="form-group">
-                            <label for="name">Nombre:</label>
-                            <input type="text" class="form-control" id="name" name="name" data-name="nombre" placeholder="Escriba nombre completo..." data-required="true">
+                        <select class="form-control select2" data-placeholder="Seleccione una categoria" name="id_categoria" id="id_categoria" data-name="categoria" data-required="true">
+                            <option value=""></option>
+                            <?php $categorias = getCategories(); ?>
+                            <?php if($categorias->num_rows > 0){ ?>
+                                <?php while($dato = $categorias->fetch_assoc()){ ?>
+                                    <option value="<?php echo $dato['id_categoria']; ?>"><?php echo $dato['cat_evento'] ?></option>
+                                <?php }?>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <!-- Categoría del evento -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                         </div>
-                        <input type="hidden" name="id" id="id" data-name="id">
-                        <input type="hidden" name="action" value="edit" id="action" data-name="action">
+                        <select class="form-control select2" data-placeholder="Seleccione un invitado" name="id_invitado" id="id_invitado" data-name="invitado" data-required="true">
+                            <option value=""></option>
+                            <?php $invitados = getInvitates(); ?>
+                            <?php if($invitados->num_rows > 0){ ?>
+                                <?php while($dato = $invitados->fetch_assoc()){ ?>
+                                    <option value="<?php echo $dato['id_invitado']; ?>"><?php echo $dato['nombre']." ".$dato['apellido'] ?></option>
+                                <?php }?>
+                            <?php }?>
+                        </select>
+                    </div>
+                    <input type="hidden" name="id" id="id" data-name="id">
+                    <input type="hidden" name="action" value="edit" id="action" data-name="action">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary resetForm" data-dismiss="modal">Cerrar</button>

@@ -34,27 +34,12 @@
                                     </div>
                                     <input type="text" class="form-control" id="event" name="event" data-name="nombre" placeholder="Nombre del evento..." data-required="true">
                                 </div>
-                                <!-- Categoría del evento -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-award"></i></span>
-                                    </div>
-                                    <select class="form-control " name="category" id="category" data-name="categoria" data-required="true">
-                                        <option value="" disabled selected>Categoría del evento</option>
-                                        <?php $categorias = getCategories(); ?>
-                                        <?php if($categorias->num_rows > 0){ ?>
-                                            <?php while($dato = $categorias->fetch_assoc()){ ?>
-                                                <option value="<?php echo $dato['id_categoria']; ?>"><?php echo $dato['cat_evento'] ?></option>
-                                            <?php }?>
-                                        <?php }?>
-                                    </select>
-                                </div>
                                 <!-- Fecha del evento -->
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="text" autocomplete="off" class="form-control datepicker" id="date" name="date" data-name="fecha" placeholder="Fecha del evento..." data-required="true" data-date-format="dd/mm/yyyy">
+                                    <input type="text" autocomplete="off" class="form-control datepickerSingle" id="date" name="date" data-name="fecha" placeholder="Fecha del evento..." data-required="true">
                                 </div>
                                 <!-- Hora del evento -->
                                 <div class="input-group mb-3">
@@ -63,11 +48,42 @@
                                     </div>
                                     <input type="text" class="form-control timepicker" id="time" name="time" data-name="hora" placeholder="Hora del evento..." data-required="true">
                                 </div>
+                                <!-- Categoría del evento -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-award"></i></span>
+                                    </div>
+                                    <select class="form-control select2" data-placeholder="Seleccione una categoria" name="category" id="category" data-name="categoria" data-required="true">
+                                        <option value=""></option>
+                                        <?php $categorias = getCategories(); ?>
+                                        <?php if($categorias->num_rows > 0){ ?>
+                                            <?php while($dato = $categorias->fetch_assoc()){ ?>
+                                                <option value="<?php echo $dato['id_categoria']; ?>"><?php echo $dato['cat_evento'] ?></option>
+                                            <?php }?>
+                                        <?php }?>
+                                    </select>
+                                </div>
+                                <!-- Categoría del evento -->
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                                    </div>
+                                    <select class="form-control select2" data-placeholder="Seleccione un invitado" name="invitate" id="invitate" data-name="invitado" data-required="true">
+                                        <option value=""></option>
+                                        <?php $invitados = getInvitates(); ?>
+                                        <?php if($invitados->num_rows > 0){ ?>
+                                            <?php while($dato = $invitados->fetch_assoc()){ ?>
+                                                <option value="<?php echo $dato['id_invitado']; ?>"><?php echo $dato['nombre']." ".$dato['apellido'] ?></option>
+                                            <?php }?>
+                                        <?php }?>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="action" value="guardar" id="action" data-name="action">
                             </div>
                             <div class="card-footer d-flex justify-content-center">
                                 <div class="btn-group">
-                                <button type="button" class="btn btn-outline-info resetForm">Limpiar</button>
-                                <button type="submit" class="btn btn-outline-success">Agregar</button>
+                                    <button type="button" class="btn btn-outline-info resetForm">Limpiar</button>
+                                    <button type="submit" class="btn btn-outline-success">Agregar</button>
                                 </div>
                             </div>
                         </form>

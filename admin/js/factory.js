@@ -54,7 +54,7 @@ function getDataForm(form){
         }
         return data;
     } catch (error) {
-        console.error('El ID y el NAME de los inputs debe ser igual, DATA-NAME se usa para detectar el input vacío');
+        console.error('El ID y el NAME de los inputs debe ser igual, DATA-NAME se usa para detectar el nombre del input vacío');
         console.error('ERROR => ', error);
         return false;
     }
@@ -81,10 +81,10 @@ function conexionPostController(url,data,form,redirect){
             if(!respuesta.error)
             {
                 showAlert('!EXITO¡',respuesta.mensaje,'green');
-                if(typeof form !== 'undefined')
+                if(typeof form !== 'undefined' && form != '')
                     $(`#${form}`).trigger("reset");
                 
-                if(typeof redirect !== 'undefined')
+                if(typeof redirect !== 'undefined' && redirect != '')
                 {
                     setTimeout(() => {
                         window.location.href = redirect;
@@ -182,10 +182,20 @@ $('.check_password').on('input', function(){
 });
 
 // ACTIVATE DATEPICKER
-$('.datepicker').daterangepicker({
+let fecha_actual = new Date();
+$('.datepickerSingle').daterangepicker({ //single DatePicker
     locale: {
-        format: 'DD/MM/YYYY hh:mm A'
-    }
+        // format: 'DD/MM/YYYY hh:mm A'
+        format : 'YYYY/MM/DD',
+        "daysOfWeek": ["Lun","Mar","Mier","Jue","Vie","Sáb","Dom"],
+        "monthNames": ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+    },
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: fecha_actual.getFullYear() - 1,
+    maxYear: fecha_actual.getFullYear() + 5,
+    opens: "left",
+    drops: "auto"
 });
 // ACTIVATE SELECT2
 $('.select2').select2({

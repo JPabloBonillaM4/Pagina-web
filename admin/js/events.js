@@ -3,17 +3,19 @@
     $('.editEvent').click(getEventEditInfo);
     $('.deleteEvent').click(modalDelete);
     $('#delete_event_admin').on('submit',deleteEvent);
+    $('#edit_event_info').on('submit',editEvent);
 
-    // SAVE NEW ADMIN
+    // SAVE NEW EVENT
     function saveEvent(event){
         event.preventDefault();
         let form  = $(this).attr('id'),
             datos = getDataForm(form);
         if(typeof datos === 'object')
         {
-            // conexionPostController("controllers/adminController.php",datos,form).then(function(){
-            //     $('.message_repeat_password').first().html('')
-            // });
+            console.log("data =>",datos);
+            conexionPostController("controllers/eventsController.php",datos,form).then(function(){
+                
+            });
         }
     }
     // GET ADMIN INFO BY USER
@@ -30,8 +32,10 @@
                 let datosUsuario = data.event;
                 for (const key in datosUsuario) {
                     if (datosUsuario.hasOwnProperty(key)) {
-                        // $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key])
-                        
+                        if(datosUsuario[key] != null){
+                            $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key].replace(/-/gi,'/'));
+                        }
+                        $(`#${key}`).trigger('change');
                     }
                 }
                 $(`#${$(this).attr('data-modal')} h5 span`).text(data.event.nombre);
@@ -62,6 +66,24 @@
                 if(!data.error){
                     $(`#${$(this).attr('data-modal')}`).modal('hide');
                     jQuery(`[data-id="${data.id}"]`).parents('tr').remove();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        }
+    }
+
+    function editEvent(event){
+        event.preventDefault();
+        let form = $(this).attr('id'),
+            datos = getDataForm(form);
+
+        if(typeof datos === 'object'){
+            conexionPostController("controllers/eventsController.php",datos).then(result => {
+                let data = JSON.parse(result);
+                if(!data.error){
+                    $(`#${$(this).attr('data-modal')}`).modal('hide');
                     setTimeout(() => {
                         window.location.reload();
                     }, 2000);
