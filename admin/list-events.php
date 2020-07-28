@@ -40,13 +40,13 @@
                         <?php if($events->num_rows > 0){ ?>
                             <?php while($dato = $events->fetch_assoc()){ ?>
                             <tr class="text-center">
-                                <td><?php echo $dato['nombre']; ?></td>
-                                <td><?php echo $dato['fecha']; ?></td>
-                                <td><?php echo $dato['hora']; ?></td>
-                                <td><?php echo $dato['nombre_evento']; ?></td>
-                                <td><?php echo $dato['nombre_invitado']; ?></td>
-                                <td><?php echo $dato['clave']; ?></td>
-                                <td>
+                                <td class="align-middle"><?php echo $dato['nombre']; ?></td>
+                                <td class="align-middle"><?php echo $dato['fecha']; ?></td>
+                                <td class="align-middle"><?php echo $dato['hora']; ?></td>
+                                <td class="align-middle"><?php echo $dato['nombre_evento']; ?></td>
+                                <td class="align-middle"><?php echo $dato['nombre_invitado']; ?></td>
+                                <td class="align-middle"><?php echo $dato['clave']; ?></td>
+                                <td class="align-middle">
                                     <a href="#" class="editEvent btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id']; ?>">
                                     <i class="far fa-edit"></i>
                                     </a>

@@ -38,9 +38,9 @@
               <?php if($categories->num_rows > 0){ ?>
                 <?php while($dato = $categories->fetch_assoc()){ ?>
                   <tr class="text-center">
-                      <td><?php echo $dato['cat_evento']; ?></td>
-                      <td><i class="fa <?php echo $dato['icono']; ?>"></i></td>
-                      <td>
+                      <td class="align-middle"><?php echo $dato['cat_evento']; ?></td>
+                      <td class="align-middle"><i class="fa <?php echo $dato['icono']; ?>"></i></td>
+                      <td class="align-middle">
                         <a href="#" class="editCategory btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id_categoria']; ?>">
                           <i class="far fa-edit"></i>
                         </a>

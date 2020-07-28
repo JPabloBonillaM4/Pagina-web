@@ -60,6 +60,28 @@ function getDataForm(form){
     }
 };
 
+// GENERAL FUNCTION TO GET DATA WITH FILES
+function getDataFormFiles(form){
+    let data = new FormData(document.getElementById(form));
+    try {
+        for (const dato of data.entries()) {
+            const element = dato[1];//dato[1] => valor
+            var campo     = document.getElementById(dato[0]);//dato[0] => Llave(name)
+            if((element == 0 || typeof element == 'undefined' || element == null) && campo.getAttribute('data-required') == 'true')
+            {
+                showAlert('CUIDADO',`El campo ${campo.getAttribute('data-name')} está vacío, favor de llenarlo`,'yellow');
+                $(`#${dato[0]}`).focus();
+                return false;
+            }
+        }
+        return data;
+    } catch (error) {
+        console.error('El ID y el NAME de los inputs debe ser igual, DATA-NAME se usa para detectar el nombre del input vacío');
+        console.error('ERROR => ', error);
+        return false;
+    }
+};
+
 // RESET FORM
 $('.resetForm').on('click',resetDataForm);
 function resetDataForm(){
@@ -75,6 +97,7 @@ function conexionPostController(url,data,form,redirect){
     //La variable "redirect" es opcional si se desea redireccionar la página
     return $.post(url,data)
     .done(function(response){
+        console.log("Response from the factory => ",response);
         const respuesta = JSON.parse(response);
         if(typeof respuesta === 'object' && typeof respuesta.error !== 'undefined')
         {
@@ -97,11 +120,52 @@ function conexionPostController(url,data,form,redirect){
                 if(respuesta.errorData)
                     console.log(respuesta.errorData);
             }
-            console.log("Response from the factory => ",respuesta);
         }
     })
     .fail(function(){
         showAlert('ERROR','Error al procesar la solicitud','red');  
+    });
+}
+
+// CONEXION POST CONTROLLER
+function conexionPostControllerWithFiles(url,data,form,redirect){
+    //La variable "form" es opcional si se desea limpiar el formulario
+    //La variable "redirect" es opcional si se desea redireccionar la página
+    return $.ajax({
+        "type"        : 'POST',
+        "data"        : data,
+        "url"         : url,
+        "dataType"    : 'json',
+        "contentType" : false,
+        "processData" : false,
+        "async"       : true,
+        "cache"       : false,
+        success : function(response) {
+            console.log("Response from the factory => ",response);
+            const respuesta = response;
+            if(typeof respuesta === 'object' && typeof respuesta.error !== 'undefined')
+            {
+                if(!respuesta.error)
+                {
+                    showAlert('!EXITO¡',respuesta.mensaje,'green');
+                    if(typeof form !== 'undefined' && form != '')
+                        $(`#${form}`).trigger("reset");
+                    
+                    if(typeof redirect !== 'undefined' && redirect != '')
+                    {
+                        setTimeout(() => {
+                            window.location.href = redirect;
+                        }, 2500);
+                    }
+                }
+                else
+                {
+                    showAlert('ERROR',respuesta.mensaje,'red');
+                    if(respuesta.errorData)
+                        console.log(respuesta.errorData);
+                }
+            }
+        }
     });
 }
 

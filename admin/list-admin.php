@@ -39,10 +39,10 @@
               <?php if($users->num_rows > 0){ ?>
                 <?php while($dato = $users->fetch_assoc()){ ?>
                   <tr class="text-center">
-                      <td><?php echo $dato['user']; ?></td>
-                      <td><?php echo $dato['name']; ?></td>
-                      <td><?php echo $dato['email']; ?></td>
-                      <td>
+                      <td class="align-middle"><?php echo $dato['user']; ?></td>
+                      <td class="align-middle"><?php echo $dato['name']; ?></td>
+                      <td class="align-middle"><?php echo $dato['email']; ?></td>
+                      <td class="align-middle">
                         <a href="#" class="editAdmin btn btn-rounded btn-outline-info btn-sm" data-modal="edit_modal" data-action="get" data-id="<?php echo $dato['id']; ?>">
                           <i class="far fa-edit"></i>
                         </a>
