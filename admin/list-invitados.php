@@ -63,7 +63,7 @@
   </div>
 
   <!-- MODALS -->
-  <?php include('modals/edit-delete-category.php') ?>
+  <?php include('modals/edit-delete-invited.php') ?>
   <!-- FOOTER -->
   <?php include('templates/footer.php'); ?>
 

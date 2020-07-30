@@ -1,9 +1,9 @@
 (()=>{
     $('#crear-invited').on('submit',saveInvited);
-    $('.editCategory').click(getCategoryEditInfo);
-    $('.deleteCategory').click(modalDelete);
-    $('#delete_category_admin').on('submit',deleteCategory);
-    $('#edit_category_info').on('submit',editCategory);
+    $('.editInvited').click(getInvitedEditInfo);
+    $('.deleteInvited').click(modalDelete);
+    $('#delete_invited').on('submit',deleteInvited);
+    $('#edit_invited_info').on('submit',editInvited);
     // SAVE NEW INVITED
     function saveInvited(event){
         event.preventDefault();
@@ -16,29 +16,28 @@
             });
         }
     }
-    // GET CATEGORY INFO BY USER
-    function getCategoryEditInfo(event){
+    // GET INVITED INFO
+    function getInvitedEditInfo(event){
         event.preventDefault();
         const id           = $(this).attr('data-id'),
               action       = $(this).attr('data-action'),
-              dataObtained = conexionGetController("controllers/categoriesController.php?id=" + id + "&action=" + action);
+              dataObtained = conexionGetController("controllers/guestsController.php?id=" + id + "&action=" + action);
         
         dataObtained.then((data) => {
             data = JSON.parse(data)
             if(!data.error)
             {
-                let datosUsuario = data.category;
+                let datosUsuario = data.invited;
                 for (const key in datosUsuario) {
                     if (datosUsuario.hasOwnProperty(key)) {
                         if(datosUsuario[key] != null){
                             $(`#${$(this).attr('data-modal')} form #${key}`).val(datosUsuario[key]);
+                            $(`#imagen_actual`).attr('src',`img/invitados/${datosUsuario['url_imagen']}`);
                         }
                         $(`#${key}`).trigger('change');
                     }
                 }
-                $(`#${$(this).attr('data-modal')} h5 span`).text(data.category.cat_evento);
-                $(`#${$(this).attr('data-modal')} #exist`).removeClass();
-                $(`#${$(this).attr('data-modal')} #exist`).addClass(`fa ${data.category.icono}`);
+                $(`#${$(this).attr('data-modal')} h5 span`).text(`${data.invited.nombre} ${data.invited.apellido}`);
                 $(`#${$(this).attr('data-modal')}`).modal('show');
             } else {
                 showAlert('ERROR',data.msg,'red');
@@ -54,12 +53,12 @@
         $(`#${$(this).attr('data-modal')}`).modal('show');
     }
     // DELETE EVENT
-    function deleteCategory(event){
+    function deleteInvited(event){
         event.preventDefault();
         let form = $(this).attr('id'),
             datos = getDataForm(form);
         if(typeof datos === 'object'){
-            conexionPostController("controllers/categoriesController.php",datos).then(result => {
+            conexionPostController("controllers/guestsController.php",datos).then(result => {
                 let data = JSON.parse(result);
                 if(!data.error){
                     $(`#${$(this).attr('data-modal')}`).modal('hide');
@@ -71,14 +70,14 @@
             });
         }
     }
-    // EDIT CATEGORY
-    function editCategory(event){
+    // EDIT INVITED
+    function editInvited(event){
         event.preventDefault();
         let form = $(this).attr('id'),
-            datos = getDataForm(form);
+            datos = getDataFormFiles(form);
         if(typeof datos === 'object'){
-            conexionPostController("controllers/categoriesController.php",datos).then(result => {
-                let data = JSON.parse(result);
+            conexionPostControllerWithFiles("controllers/guestsController.php",datos).then(result => {
+                let data = result;
                 if(!data.error){
                     $(`#${$(this).attr('data-modal')}`).modal('hide');
                     setTimeout(() => {
