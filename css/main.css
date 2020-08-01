@@ -1170,6 +1170,11 @@ textarea {
     border-bottom: 1px solid #fe4918 !important;
   }
 
+  .invitado-info img{
+    max-width: 100%; 
+    height:280px;
+  }
+
   
 
 /* ==========================================================================

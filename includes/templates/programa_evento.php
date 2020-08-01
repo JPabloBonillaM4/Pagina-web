@@ -28,41 +28,41 @@
             require_once('includes/funciones/bd_conexion.php');//Mandar a llamar el archivo de conexion a la BD para poder realizar consultas, etc...
 
             // PRIMER QUERY  
-            $consulta_eventos = "SELECT evento_id, nombre_evento, fecha_evento, hora_evento, cat_evento, icono, nombre_invitado, apellido_invitado ";
+            $consulta_eventos = "SELECT eventos.id, eventos.nombre as nombre_evento, eventos.fecha as fecha_evento, eventos.hora as hora_evento, cat_evento, icono, invitados.nombre as nombre_invitado, invitados.apellido as apellido_invitado ";
             $consulta_eventos .= " FROM eventos ";//consulta completa
 
             $consulta_eventos .= " INNER JOIN categoria_evento ";//Agregado del JOIN a la consulta
-            $consulta_eventos .= " ON eventos.id_cat_evento = categoria_evento.id_categoria ";
+            $consulta_eventos .= " ON eventos.id_categoria = categoria_evento.id_categoria ";
 
             $consulta_eventos .= " INNER JOIN invitados ";
-            $consulta_eventos .= " ON eventos.id_inv = invitados.invitado_id ";
-            $consulta_eventos .= " AND eventos.id_cat_evento = 1";
-            $consulta_eventos .= " ORDER BY evento_id LIMIT 2;";
+            $consulta_eventos .= " ON eventos.id_invitado = invitados.id_invitado ";
+            $consulta_eventos .= " AND eventos.id_categoria = 1";
+            $consulta_eventos .= " ORDER BY eventos.id LIMIT 2;";
 
             // SEGUNDO QUERY
-            $consulta_eventos .= "SELECT evento_id, nombre_evento, fecha_evento, hora_evento, cat_evento, icono, nombre_invitado, apellido_invitado ";
+            $consulta_eventos .= "SELECT eventos.id, eventos.nombre as nombre_evento, eventos.fecha as fecha_evento, eventos.hora as hora_evento, cat_evento, icono, invitados.nombre as nombre_invitado, invitados.apellido as apellido_invitado ";
             $consulta_eventos .= " FROM eventos ";//consulta completa
 
             $consulta_eventos .= " INNER JOIN categoria_evento ";//Agregado del JOIN a la consulta
-            $consulta_eventos .= " ON eventos.id_cat_evento = categoria_evento.id_categoria ";
+            $consulta_eventos .= " ON eventos.id_categoria = categoria_evento.id_categoria ";
 
             $consulta_eventos .= " INNER JOIN invitados ";
-            $consulta_eventos .= " ON eventos.id_inv = invitados.invitado_id ";
-            $consulta_eventos .= " AND eventos.id_cat_evento = 2";
-            $consulta_eventos .= " ORDER BY evento_id LIMIT 2;";
+            $consulta_eventos .= " ON eventos.id_invitado = invitados.id_invitado ";
+            $consulta_eventos .= " AND eventos.id_categoria = 2";
+            $consulta_eventos .= " ORDER BY eventos.id LIMIT 2;";
 
             // TERCER QUERY
 
-            $consulta_eventos .= "SELECT evento_id, nombre_evento, fecha_evento, hora_evento, cat_evento, icono, nombre_invitado, apellido_invitado ";
+            $consulta_eventos .= "SELECT eventos.id, eventos.nombre as nombre_evento, eventos.fecha as fecha_evento, eventos.hora as hora_evento, cat_evento, icono, invitados.nombre as nombre_invitado, invitados.apellido as apellido_invitado ";
             $consulta_eventos .= " FROM eventos ";//consulta completa
 
             $consulta_eventos .= " INNER JOIN categoria_evento ";//Agregado del JOIN a la consulta
-            $consulta_eventos .= " ON eventos.id_cat_evento = categoria_evento.id_categoria ";
+            $consulta_eventos .= " ON eventos.id_categoria = categoria_evento.id_categoria ";
 
             $consulta_eventos .= " INNER JOIN invitados ";
-            $consulta_eventos .= " ON eventos.id_inv = invitados.invitado_id ";
-            $consulta_eventos .= " AND eventos.id_cat_evento = 3";
-            $consulta_eventos .= " ORDER BY evento_id LIMIT 2";
+            $consulta_eventos .= " ON eventos.id_invitado = invitados.id_invitado ";
+            $consulta_eventos .= " AND eventos.id_categoria = 3";
+            $consulta_eventos .= " ORDER BY eventos.id LIMIT 2";
 
         }catch(\Exception $e){
             echo $e->getMessage();//Imprimir un mensaje al tener algun error
