@@ -37,6 +37,8 @@
     <script src="js/categories.js"></script>
     <!-- guests js -->
     <script src="js/guests.js"></script>
+    <!-- registers js -->
+    <script src="js/register.js"></script>
     <!-- login-admin js -->
     <script src="js/login-admin.js"></script>
 </body>
